@@ -206,10 +206,10 @@ export default class SelectServer extends PureComponent {
         const {intl} = this.context;
         const {config, license} = props;
         const samlEnabled = config.EnableSaml === 'true' && license.IsLicensed === 'true' && license.SAML === 'true';
-        const gitlabEnabled = config.EnableSignUpWithGitLab === 'true';
+        const googleEnabled = config.EnableSignUpWithGoogle === 'true';
 
         let options = 0;
-        if (samlEnabled || gitlabEnabled) {
+        if (samlEnabled || googleEnabled) {
             options += 1;
         }
 

@@ -160,16 +160,16 @@ class LoginOptions extends PureComponent {
         return null;
     };
 
-    renderGitlabOption = () => {
+    renderGoogleOption = () => {
         const {config} = this.props;
 
         const forceHideFromLocal = LocalConfig.HideGitLabLoginExperimental;
 
-        if (!forceHideFromLocal && config.EnableSignUpWithGitLab === 'true') {
+        if (!forceHideFromLocal && config.EnableSignUpWithGoogle === 'true') {
             return (
                 <Button
                     key='gitlab'
-                    onPress={preventDoubleTap(() => this.goToSSO(ViewTypes.GITLAB))}
+                    onPress={preventDoubleTap(() => this.goToSSO(ViewTypes.GOOGLE))}
                     containerStyle={[GlobalStyles.signupButton, {backgroundColor: '#548'}]}
                 >
                     <Image
@@ -253,7 +253,7 @@ class LoginOptions extends PureComponent {
                 />
                 {this.renderEmailOption()}
                 {this.renderLdapOption()}
-                {this.renderGitlabOption()}
+                {this.renderGoogleOption()}
                 {this.renderSamlOption()}
             </ScrollView>
         );

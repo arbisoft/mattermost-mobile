@@ -18,6 +18,7 @@
     "HideLDAPLoginExperimental": false,
     "HideSAMLLoginExperimental": false,
 
+    "EnableSignUpWithGoogle": true,
     "SentryEnabled": false,
     "SentryDsnIos": "",
     "SentryDsnAndroid": "",
