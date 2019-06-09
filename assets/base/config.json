@@ -19,6 +19,7 @@
     "HideSAMLLoginExperimental": false,
     "HideO365LoginExperimental": false,
 
+    "EnableSignUpWithGoogle": true,
     "SentryEnabled": false,
     "SentryDsnIos": "",
     "SentryDsnAndroid": "",

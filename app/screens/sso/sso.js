@@ -37,10 +37,10 @@ const oneLoginFormScalingJS = `
         if (loginPage) {
             loginPage.setAttribute('style', 'background-repeat: repeat-y;');
         }
-        
+
         function resetPadding() {
             var mainBody = document.getElementById('body-main');
-            
+
             if (mainBody) {
                 mainBody.setAttribute('style', 'height: auto; padding: 10px 0;');
             }
@@ -51,7 +51,7 @@ const oneLoginFormScalingJS = `
         }
 
         resetPadding();
-        
+
         if (submitButton) {
             submitButton.addEventListener('click', resetPadding);
         }
@@ -85,6 +85,10 @@ class SSO extends PureComponent {
         };
 
         switch (props.ssoType) {
+        case ViewTypes.GOOGLE:
+            this.loginUrl = `${props.serverUrl}/oauth/google/mobile_login`;
+            this.completedUrl = '/signup/google/complete';
+            break;
         case ViewTypes.GITLAB:
             this.loginUrl = `${props.serverUrl}/oauth/gitlab/mobile_login`;
             this.completedUrl = '/signup/gitlab/complete';
@@ -243,10 +247,11 @@ class SSO extends PureComponent {
                     renderLoading={this.renderLoading}
                     injectedJavaScript={jsCode}
                     onLoadEnd={this.onLoadEnd}
-                    onMessage={messagingEnabled ? this.onMessage : null}
-                    useWebKit={this.useWebkit}
+                    onMessage={messagingEnabled && this.onMessage}
+                    useWebKit={true}
                     useSharedProcessPool={true}
                     cacheEnabled={true}
+                    userAgent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
                 />
             );
         }
