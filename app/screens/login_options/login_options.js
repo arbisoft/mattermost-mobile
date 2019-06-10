@@ -21,6 +21,8 @@ import {preventDoubleTap} from 'app/utils/tap';
 
 import LocalConfig from 'assets/config';
 import gitlab from 'assets/images/gitlab.png';
+import google1 from 'assets/images/google1.png';
+import google2 from 'assets/images/google2.png';
 import logo from 'assets/images/logo.png';
 
 class LoginOptions extends PureComponent {
@@ -161,31 +163,19 @@ class LoginOptions extends PureComponent {
     };
 
     renderGoogleOption = () => {
-        const {config} = this.props;
-
-        const forceHideFromLocal = LocalConfig.HideGitLabLoginExperimental;
-
-        if (!forceHideFromLocal && config.EnableSignUpWithGoogle === 'true') {
-            return (
-                <Button
-                    key='gitlab'
-                    onPress={preventDoubleTap(() => this.goToSSO(ViewTypes.GOOGLE))}
-                    containerStyle={[GlobalStyles.signupButton, {backgroundColor: '#548'}]}
+        return (
+            <Button
+                key='google'
+                onPress={preventDoubleTap(() => this.goToSSO(ViewTypes.GOOGLE))}
+                containerStyle={[GlobalStyles.signupButton, {backgroundColor: '#db3236'}]}
+            >
+                <Text
+                    style={[GlobalStyles.signupButtonText, {color: 'white'}]}
                 >
-                    <Image
-                        source={gitlab}
-                        style={{height: 18, marginRight: 5, width: 18}}
-                    />
-                    <Text
-                        style={[GlobalStyles.signupButtonText, {color: 'white'}]}
-                    >
-                        {'GitLab'}
-                    </Text>
-                </Button>
-            );
-        }
-
-        return null;
+                    {'Google'}
+                </Text>
+            </Button>
+        );
     };
 
     renderO365Option = () => {
@@ -286,7 +276,6 @@ class LoginOptions extends PureComponent {
                     id='mobile.login_options.choose_title'
                     defaultMessage='Choose your login method'
                 />
-                {this.renderEmailOption()}
                 {this.renderLdapOption()}
                 {this.renderGoogleOption()}
                 {this.renderSamlOption()}
