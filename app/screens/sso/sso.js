@@ -94,7 +94,9 @@ class SSO extends PureComponent {
             this.completedUrl = '/signup/gitlab/complete';
             break;
         case ViewTypes.SAML:
-            this.loginUrl = `${props.serverUrl}/login/sso/saml?action=mobile`;
+            this.loginUrl = `${
+                props.serverUrl
+            }/login/sso/saml?action=mobile`;
             this.completedUrl = '/login/sso/saml';
             break;
         case ViewTypes.OFFICE365:
@@ -144,11 +146,7 @@ class SSO extends PureComponent {
         try {
             const response = JSON.parse(event.nativeEvent.data);
             if (response) {
-                const {
-                    id,
-                    message,
-                    status_code: statusCode,
-                } = response;
+                const {id, message, status_code: statusCode} = response;
                 if (id && message && statusCode !== 200) {
                     this.setState({error: message});
                 }
