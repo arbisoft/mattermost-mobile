@@ -12,6 +12,7 @@ import AttachmentButton from 'app/components/attachment_button';
 
 export default class ProfilePictureButton extends PureComponent {
     static propTypes = {
+        children: PropTypes.object,
         currentUser: PropTypes.object.isRequired,
         theme: PropTypes.object.isRequired,
         removeProfileImage: PropTypes.func,

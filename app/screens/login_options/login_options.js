@@ -4,13 +4,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {injectIntl, intlShape} from 'react-intl';
-import {
-    Dimensions,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-} from 'react-native';
+import {Dimensions, Image, ScrollView, StyleSheet, Text} from 'react-native';
 import Button from 'react-native-button';
 
 import {ViewTypes} from 'app/constants';
@@ -20,9 +14,6 @@ import {GlobalStyles} from 'app/styles';
 import {preventDoubleTap} from 'app/utils/tap';
 
 import LocalConfig from 'assets/config';
-import gitlab from 'assets/images/gitlab.png';
-import google1 from 'assets/images/google1.png';
-import google2 from 'assets/images/google2.png';
 import logo from 'assets/images/logo.png';
 
 class LoginOptions extends PureComponent {
@@ -46,7 +37,10 @@ class LoginOptions extends PureComponent {
         const {intl, navigator, theme} = this.props;
         navigator.push({
             screen: 'Login',
-            title: intl.formatMessage({id: 'mobile.routes.login', defaultMessage: 'Login'}),
+            title: intl.formatMessage({
+                id: 'mobile.routes.login',
+                defaultMessage: 'Login',
+            }),
             animated: true,
             backButtonTitle: '',
             navigatorStyle: {
@@ -62,7 +56,10 @@ class LoginOptions extends PureComponent {
         const {intl, navigator, theme} = this.props;
         navigator.push({
             screen: 'SSO',
-            title: intl.formatMessage({id: 'mobile.routes.sso', defaultMessage: 'Single Sign-On'}),
+            title: intl.formatMessage({
+                id: 'mobile.routes.sso',
+                defaultMessage: 'Single Sign-On',
+            }),
             animated: true,
             backButtonTitle: '',
             navigatorStyle: {
@@ -85,14 +82,19 @@ class LoginOptions extends PureComponent {
         const {config} = this.props;
         const forceHideFromLocal = LocalConfig.HideEmailLoginExperimental;
 
-        if (!forceHideFromLocal && (config.EnableSignInWithEmail === 'true' || config.EnableSignInWithUsername === 'true')) {
+        if (
+            !forceHideFromLocal &&
+            (config.EnableSignInWithEmail === 'true' ||
+                config.EnableSignInWithUsername === 'true')
+        ) {
             const backgroundColor = config.EmailLoginButtonColor || '#2389d7';
             const additionalStyle = {
                 backgroundColor,
             };
 
             if (config.EmailLoginButtonBorderColor) {
-                additionalStyle.borderColor = config.EmailLoginButtonBorderColor;
+                additionalStyle.borderColor =
+                    config.EmailLoginButtonBorderColor;
             }
 
             const textColor = config.EmailLoginButtonTextColor || 'white';
@@ -101,12 +103,18 @@ class LoginOptions extends PureComponent {
                 <Button
                     key='email'
                     onPress={this.goToLogin}
-                    containerStyle={[GlobalStyles.signupButton, additionalStyle]}
+                    containerStyle={[
+                        GlobalStyles.signupButton,
+                        additionalStyle,
+                    ]}
                 >
                     <FormattedText
                         id='signup.email'
                         defaultMessage='Email and Password'
-                        style={[GlobalStyles.signupButtonText, {color: textColor}]}
+                        style={[
+                            GlobalStyles.signupButtonText,
+                            {color: textColor},
+                        ]}
                     />
                 </Button>
             );
@@ -119,7 +127,11 @@ class LoginOptions extends PureComponent {
         const {config, license} = this.props;
         const forceHideFromLocal = LocalConfig.HideLDAPLoginExperimental;
 
-        if (!forceHideFromLocal && license.IsLicensed === 'true' && config.EnableLdap === 'true') {
+        if (
+            !forceHideFromLocal &&
+            license.IsLicensed === 'true' &&
+            config.EnableLdap === 'true'
+        ) {
             const backgroundColor = config.LDAPLoginButtonColor || '#2389d7';
             const additionalStyle = {
                 backgroundColor,
@@ -134,7 +146,12 @@ class LoginOptions extends PureComponent {
             let buttonText;
             if (config.LdapLoginFieldName) {
                 buttonText = (
-                    <Text style={[GlobalStyles.signupButtonText, {color: textColor}]}>
+                    <Text
+                        style={[
+                            GlobalStyles.signupButtonText,
+                            {color: textColor},
+                        ]}
+                    >
                         {config.LdapLoginFieldName}
                     </Text>
                 );
@@ -143,7 +160,10 @@ class LoginOptions extends PureComponent {
                     <FormattedText
                         id='login.ldapUsernameLower'
                         defaultMessage='AD/LDAP username'
-                        style={[GlobalStyles.signupButtonText, {color: textColor}]}
+                        style={[
+                            GlobalStyles.signupButtonText,
+                            {color: textColor},
+                        ]}
                     />
                 );
             }
@@ -152,7 +172,10 @@ class LoginOptions extends PureComponent {
                 <Button
                     key='ldap'
                     onPress={this.goToLogin}
-                    containerStyle={[GlobalStyles.signupButton, additionalStyle]}
+                    containerStyle={[
+                        GlobalStyles.signupButton,
+                        additionalStyle,
+                    ]}
                 >
                     {buttonText}
                 </Button>
@@ -167,7 +190,10 @@ class LoginOptions extends PureComponent {
             <Button
                 key='google'
                 onPress={preventDoubleTap(() => this.goToSSO(ViewTypes.GOOGLE))}
-                containerStyle={[GlobalStyles.signupButton, {backgroundColor: '#db3236'}]}
+                containerStyle={[
+                    GlobalStyles.signupButton,
+                    {backgroundColor: '#db3236'},
+                ]}
             >
                 <Text
                     style={[GlobalStyles.signupButtonText, {color: 'white'}]}
@@ -182,7 +208,12 @@ class LoginOptions extends PureComponent {
         const {config, license} = this.props;
         const forceHideFromLocal = LocalConfig.HideSAMLLoginExperimental;
 
-        if (!forceHideFromLocal && config.EnableSaml === 'true' && license.IsLicensed === 'true' && license.SAML === 'true') {
+        if (
+            !forceHideFromLocal &&
+            config.EnableSaml === 'true' &&
+            license.IsLicensed === 'true' &&
+            license.SAML === 'true'
+        ) {
             const backgroundColor = config.SamlLoginButtonColor || '#34a28b';
 
             const additionalStyle = {
@@ -198,11 +229,19 @@ class LoginOptions extends PureComponent {
             return (
                 <Button
                     key='saml'
-                    onPress={preventDoubleTap(() => this.goToSSO(ViewTypes.SAML))}
-                    containerStyle={[GlobalStyles.signupButton, additionalStyle]}
+                    onPress={preventDoubleTap(() =>
+                        this.goToSSO(ViewTypes.SAML)
+                    )}
+                    containerStyle={[
+                        GlobalStyles.signupButton,
+                        additionalStyle,
+                    ]}
                 >
                     <Text
-                        style={[GlobalStyles.signupButtonText, {color: textColor}]}
+                        style={[
+                            GlobalStyles.signupButtonText,
+                            {color: textColor},
+                        ]}
                     >
                         {config.SamlLoginButtonText}
                     </Text>
@@ -225,9 +264,7 @@ class LoginOptions extends PureComponent {
                 ref={this.scrollRef}
             >
                 <StatusBar/>
-                <Image
-                    source={logo}
-                />
+                <Image source={logo}/>
                 <Text style={GlobalStyles.header}>
                     {this.props.config.SiteName}
                 </Text>
@@ -237,7 +274,10 @@ class LoginOptions extends PureComponent {
                     defaultMessage='All team communication in one place, searchable and accessible anywhere'
                 />
                 <FormattedText
-                    style={[GlobalStyles.subheader, {fontWeight: 'bold', marginTop: 10}]}
+                    style={[
+                        GlobalStyles.subheader,
+                        {fontWeight: 'bold', marginTop: 10},
+                    ]}
                     id='mobile.login_options.choose_title'
                     defaultMessage='Choose your login method'
                 />

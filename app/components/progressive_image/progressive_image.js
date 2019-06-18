@@ -22,6 +22,9 @@ export default class ProgressiveImage extends PureComponent {
         theme: PropTypes.object.isRequired,
         thumbnailUri: PropTypes.string,
         tintDefaultSource: PropTypes.bool,
+        onError: PropTypes.func,
+        resizeMode: PropTypes.string,
+        resizeMethod: PropTypes.string,
     };
 
     static defaultProps = {

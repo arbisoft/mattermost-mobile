@@ -4,11 +4,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {injectIntl, intlShape} from 'react-intl';
-import {
-    InteractionManager,
-    Text,
-    View,
-} from 'react-native';
+import {InteractionManager, Text, View} from 'react-native';
 import {WebView} from 'react-native-webview';
 import CookieManager from 'react-native-cookies';
 import urlParse from 'url-parse';
@@ -92,7 +88,9 @@ class SSO extends PureComponent {
             this.completedUrl = '/signup/gitlab/complete';
             break;
         case ViewTypes.SAML:
-            this.loginUrl = `${props.serverUrl}/login/sso/saml?action=mobile`;
+            this.loginUrl = `${
+                props.serverUrl
+            }/login/sso/saml?action=mobile`;
             this.completedUrl = '/login/sso/saml';
             break;
         }
@@ -117,7 +115,8 @@ class SSO extends PureComponent {
                 date: new Date(expiresAt),
                 message: intl.formatMessage({
                     id: 'mobile.session_expired',
-                    defaultMessage: 'Session Expired: Please log in to continue receiving notifications.',
+                    defaultMessage:
+                        'Session Expired: Please log in to continue receiving notifications.',
                 }),
                 userInfo: {
                     localNotification: true,
@@ -145,11 +144,7 @@ class SSO extends PureComponent {
         try {
             const response = JSON.parse(event.nativeEvent.data);
             if (response) {
-                const {
-                    id,
-                    message,
-                    status_code: statusCode,
-                } = response;
+                const {id, message, status_code: statusCode} = response;
                 if (id && message && statusCode !== 200) {
                     this.setState({error: message});
                 }
@@ -246,7 +241,7 @@ class SSO extends PureComponent {
                     onLoadEnd={this.onLoadEnd}
                     onMessage={messagingEnabled && this.onMessage}
                     useWebKit={true}
-                    userAgent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
+                    userAgent='Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
                 />
             );
         }
