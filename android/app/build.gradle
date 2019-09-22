@@ -119,7 +119,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mattermost.rnbeta"
+        applicationId "com.arbisoft.mattermost"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 204
@@ -131,7 +131,6 @@ android {
 
     }
     signingConfigs {
-
         release {
             storeFile file(RELEASE_STORE_FILE)
             storePassword RELEASE_STORE_PASSWORD
@@ -140,9 +139,9 @@ android {
         }
     }
     buildTypes {
-            release {
-                signingConfig signingConfigs.release
-            }
+        release {
+            signingConfig signingConfigs.release
+        }
     }
     splits {
         abi {
