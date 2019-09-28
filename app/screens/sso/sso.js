@@ -37,10 +37,10 @@ const oneLoginFormScalingJS = `
         if (loginPage) {
             loginPage.setAttribute('style', 'background-repeat: repeat-y;');
         }
-        
+
         function resetPadding() {
             var mainBody = document.getElementById('body-main');
-            
+
             if (mainBody) {
                 mainBody.setAttribute('style', 'height: auto; padding: 10px 0;');
             }
@@ -51,7 +51,7 @@ const oneLoginFormScalingJS = `
         }
 
         resetPadding();
-        
+
         if (submitButton) {
             submitButton.addEventListener('click', resetPadding);
         }
@@ -92,6 +92,10 @@ class SSO extends PureComponent {
         case ViewTypes.SAML:
             this.loginUrl = `${props.serverUrl}/login/sso/saml?action=mobile`;
             this.completedUrl = '/login/sso/saml';
+            break;
+        case ViewTypes.GOOGLE:
+            this.loginUrl = `${props.serverUrl}/oauth/google/mobile_login`;
+            this.completedUrl = '/signup/google/complete';
             break;
         case ViewTypes.OFFICE365:
             this.loginUrl = `${props.serverUrl}/oauth/office365/mobile_login`;
@@ -247,6 +251,8 @@ class SSO extends PureComponent {
                     useWebKit={this.useWebkit}
                     useSharedProcessPool={true}
                     cacheEnabled={true}
+                    userAgent='Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+
                 />
             );
         }
