@@ -34,6 +34,8 @@
 
     "AutoSelectServerUrl": false,
 
+    "EnableSignUpWithGoogle": true,
+
     "EnableMobileClientUpgrade": false,
     "EnableMobileClientUpgradeUserSetting": false,
     "EnableForceMobileClientUpgrade": false,

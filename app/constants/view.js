@@ -64,6 +64,7 @@ const ViewTypes = keyMirror({
     REMOVE_LAST_CHANNEL_FOR_TEAM: null,
 
     GITLAB: null,
+    GOOGLE: null,
     OFFICE365: null,
     SAML: null,
 
