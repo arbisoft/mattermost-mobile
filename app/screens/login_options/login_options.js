@@ -173,6 +173,25 @@ export default class LoginOptions extends PureComponent {
         return null;
     };
 
+    renderGoogleOption = () => {
+        return (
+            <Button
+                key='google'
+                onPress={preventDoubleTap(() => this.goToSSO(ViewTypes.GOOGLE))}
+                containerStyle={[
+                    GlobalStyles.signupButton,
+                    {backgroundColor: '#db3236'},
+                ]}
+            >
+                <Text
+                    style={[GlobalStyles.signupButtonText, {color: 'white'}]}
+                >
+                    {'Google'}
+                </Text>
+            </Button>
+        );
+    }
+
     renderO365Option = () => {
         const {config, license} = this.props;
         const forceHideFromLocal = LocalConfig.HideO365LoginExperimental;
@@ -274,6 +293,7 @@ export default class LoginOptions extends PureComponent {
                 {this.renderEmailOption()}
                 {this.renderLdapOption()}
                 {this.renderGitlabOption()}
+                {this.renderGoogleOption()}
                 {this.renderSamlOption()}
                 {this.renderO365Option()}
             </ScrollView>
