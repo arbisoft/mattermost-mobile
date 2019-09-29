@@ -91,7 +91,7 @@ exports[`Theme should match snapshot 1`] = `
         isTablet={false}
         label={
           <Text>
-            Organization
+            Arbisoft
           </Text>
         }
         selected={false}
