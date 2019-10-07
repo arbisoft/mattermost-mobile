@@ -1,16 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import LocalConfig from 'assets/config'; // eslint-disable-line
-
-import store from 'app/store';
-
-import {
-    saveToTelemetryServer,
-    getDeviceInfo,
-    setTraceRecord,
-} from './telemetry_utils';
-
 class Telemetry {
     constructor() {
         this.appStartTime = 0;
@@ -21,137 +11,23 @@ class Telemetry {
         this.pendingSinceLaunchMetrics = [];
     }
 
-    setAppStartTime(startTime) {
-        this.appStartTime = startTime;
-    }
+    setAppStartTime = () => true;
 
-    reset() {
-        this.metrics = [];
-        this.currentMetrics = {};
-        this.pendingSinceLaunchMetrics = [];
-    }
+    reset = () => true;
 
-    canSendTelemetry() {
-        const {config} = store.getState().entities.general;
-        return Boolean(!__DEV__ && config.EnableDiagnostics === 'true' && LocalConfig.TelemetryEnabled);
-    }
+    canSendTelemetry = () => false;
 
-    start(names = [], time = 0) {
-        if (this.canSendTelemetry()) {
-            const d = new Date();
-            const startTime = d.getTime();
+    start = () => true;
 
-            names.forEach((name) => {
-                this.currentMetrics[name] = {
-                    name,
-                    startTime: time || startTime,
-                };
-            });
-        }
-    }
+    end = () => true;
 
-    end(names = []) {
-        if (this.canSendTelemetry()) {
-            const d = new Date();
-            const endTime = d.getTime();
-            names.forEach((name) => {
-                const finalMetric = this.currentMetrics[name];
+    include = () => true;
 
-                if (finalMetric && finalMetric.startTime > 0) {
-                    this.metrics.push({
-                        ...finalMetric,
-                        endTime,
-                    });
+    startSinceLaunch = () => true;
 
-                    Reflect.deleteProperty(this.currentMetrics, name);
-                }
-            });
-        }
-    }
+    remove = () => true;
 
-    include(metrics = []) {
-        if (this.canSendTelemetry()) {
-            metrics.forEach((metric) => {
-                this.metrics.push({
-                    name: metric.name,
-                    startTime: metric.startTime,
-                    endTime: metric.endTime,
-                });
-            });
-        }
-    }
-
-    startSinceLaunch(names = []) {
-        if (this.canSendTelemetry()) {
-            const d = new Date();
-            const endTime = d.getTime();
-
-            names.forEach((name) => {
-                if (!this.appStartTime) {
-                    this.pendingSinceLaunchMetrics.push({
-                        name,
-                        endTime,
-                    });
-                    return;
-                }
-
-                this.metrics.push({
-                    name,
-                    startTime: this.appStartTime,
-                    endTime,
-                });
-            });
-        }
-    }
-
-    remove(names = []) {
-        names.forEach((name) => {
-            const currentMetric = this.currentMetrics[name];
-
-            if (currentMetric) {
-                Reflect.deleteProperty(this.currentMetrics, name);
-            }
-        });
-    }
-
-    save() {
-        if (!this.canSendTelemetry()) {
-            return;
-        }
-
-        this.pendingSinceLaunchMetrics.forEach((pendingMetric) => {
-            this.metrics.push({
-                ...pendingMetric,
-                startTime: this.appStartTime,
-            });
-        });
-
-        if (this.metrics.length === 0) {
-            return;
-        }
-
-        const metrics = this.metrics.filter((m) => m.endTime && m.startTime).map((metric) => {
-            const {name, startTime, endTime} = metric;
-            let dur;
-            if (endTime && startTime) {
-                dur = (endTime - startTime) * 1000;
-            }
-
-            return setTraceRecord({
-                name,
-                time: startTime * 1000,
-                dur,
-            });
-        });
-
-        const {config} = store.getState().entities.general;
-        const deviceInfo = getDeviceInfo();
-        deviceInfo.server_version = config.Version;
-
-        saveToTelemetryServer({trace_events: metrics, device_info: deviceInfo});
-
-        this.reset();
-    }
+    save = () => true;
 }
 
 const telemetry = new Telemetry();
