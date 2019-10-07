@@ -41,7 +41,7 @@ const allowedThemes = [
         key: 'default',
     },
     {
-        type: 'Organization',
+        type: 'Arbisoft',
         sidebarBg: '#2071a7',
         sidebarText: '#ffffff',
         sidebarUnreadText: '#ffffff',

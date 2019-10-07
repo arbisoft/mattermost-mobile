@@ -81,7 +81,7 @@ export default class Theme extends React.PureComponent {
                 key={allowedTheme.key}
                 label={(
                     <Text>
-                        {allowedTheme.type}
+                        {allowedTheme.type === 'Organization' ? 'Arbisoft' : allowedTheme.type}
                     </Text>
                 )}
                 action={this.setTheme}
